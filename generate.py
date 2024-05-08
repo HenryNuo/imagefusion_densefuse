@@ -61,7 +61,7 @@ def _handler(ir_path, vis_path, model_path, model_pre_path, ssim_weight, index, 
 		saver.restore(sess, model_path)
 
 		output = sess.run(output_image, feed_dict={infrared_field: ir_img, visible_field: vis_img})
-
+		output = np.transpose(output, axes=(0, 2, 1, 3))
 		save_images(ir_path, output, output_path,
 		            prefix='fused' + str(index), suffix='_densefuse_addition_'+str(ssim_weight))
 
@@ -105,6 +105,7 @@ def _handler_l1(ir_path, vis_path, model_path, model_pre_path, ssim_weight, inde
 		feature = L1_norm(enc_ir_temp, enc_vis_temp)
 
 		output = sess.run(output_image, feed_dict={target: feature})
+		output = np.transpose(output, axes=(0, 2, 1, 3))
 		save_images(ir_path, output, output_path,
 		            prefix='fused' + str(index), suffix='_densefuse_l1norm_'+str(ssim_weight))
 

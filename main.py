@@ -62,23 +62,23 @@ def main():
 			generate(IR_path, VIS_path, model_path, model_pre_path,
 			         ssim_weight, 0, IS_VIDEO, 'addition', output_path=output_save_path)
 		else:
-			ssim_weight = SSIM_WEIGHTS[2]
-			model_path = MODEL_SAVE_PATHS[2]
+			ssim_weight = SSIM_WEIGHTS[1]
+			model_path = MODEL_SAVE_PATHS[3]
 			print('\nBegin to generate pictures ...\n')
 			# path = 'images/IV_images/'
-			path = 'images/IV_images/'
-			for i in range(1):
+			path = 'images/tno/all/'
+			for i in range(37):
 				index = i + 1
-				# infrared = path + 'IR' + str(index) + '.png'
-				# visible = path + 'VIS' + str(index) + '.png'
+				infrared = path + 'IR' + str(index) + '.png'
+				visible = path + 'VIS' + str(index) + '.png'
 
 				# RGB images
-				infrared = path + 'IR1.png'
-				visible = path + 'VIS1.png'
+				#infrared = path + 'IR3.png'
+				#visible = path + 'VIS3.png'
 
 				# choose fusion layer
 				fusion_type = 'addition'
-				# fusion_type = 'l1'
+				#fusion_type = 'l1'
 				for ssim_weight, model_path in zip(SSIM_WEIGHTS, MODEL_SAVE_PATHS):
 				# 	output_save_path = 'outputs'
                 #
