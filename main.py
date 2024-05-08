@@ -66,8 +66,8 @@ def main():
 			model_path = MODEL_SAVE_PATHS[3]
 			print('\nBegin to generate pictures ...\n')
 			# path = 'images/IV_images/'
-			path = 'images/tno/all/'
-			for i in range(37):
+			path = 'images/M3FD_Fusion/all/'
+			for i in range(300):
 				index = i + 1
 				infrared = path + 'IR' + str(index) + '.png'
 				visible = path + 'VIS' + str(index) + '.png'
@@ -85,7 +85,7 @@ def main():
 				# 	generate(infrared, visible, model_path, model_pre_path,
 				# 	         ssim_weight, index, IS_VIDEO, is_RGB, type = fusion_type, output_path = output_save_path)
 
-					output_save_path = 'outputs'
+					output_save_path = 'M3FD_Fusion_outputs'
 					generate(infrared, visible, model_path, model_pre_path, ssim_weight, index, IS_VIDEO, IS_RGB, type=fusion_type, output_path=output_save_path)
 
 
