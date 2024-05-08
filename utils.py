@@ -4,13 +4,15 @@ import numpy as np
 
 from os import listdir, mkdir, sep
 from os.path import join, exists, splitext
-from scipy.misc import imread, imsave, imresize
+#from scipy.misc import imread, imsave, imresize
 import skimage
 import skimage.io
 import skimage.transform
 import tensorflow as tf
 from PIL import Image
 from functools import reduce
+import imageio
+
 
 def list_images(directory):
     images = []
@@ -31,9 +33,9 @@ def list_images(directory):
 
 # read images
 def get_image(path, height=256, width=256, set_mode='L'):
-    image = imread(path, mode=set_mode)
+    image = imageio.imread(path, mode=set_mode)
     if height is not None and width is not None:
-        image = imresize(image, [height, width], interp='nearest')
+        image = skimage.transform.imresize(image, [height, width], interp='nearest')
     return image
 
 
@@ -71,15 +73,15 @@ def get_train_images_rgb(paths, crop_height=256, crop_width=256, flag=False):
 
 def get_test_image_rgb(path, resize_len=512, crop_height=256, crop_width=256, flag = True):
     # image = imread(path, mode='L')
-    image = imread(path, mode='RGB')
+    image = imageio.imread(path, mode='RGB')
     return image
 
 
 def get_images_test(path, mod_type='L', height=None, width=None):
 
-    image = imread(path, mode=mod_type)
+    image = imageio.imread(path, mode=mod_type)
     if height is not None and width is not None:
-        image = imresize(image, [height, width], interp='nearest')
+        image = skimage.transform.imresize(image, [height, width], interp='nearest')
 
     if mod_type=='L':
         d = image.shape
@@ -94,10 +96,10 @@ def get_images(paths, height=None, width=None):
 
     images = []
     for path in paths:
-        image = imread(path, mode='RGB')
+        image = imageio.imread(path, mode='RGB')
 
         if height is not None and width is not None:
-            image = imresize(image, [height, width], interp='nearest')
+            image = skimage.transform.imresize(image, [height, width], interp='nearest')
 
         images.append(image)
 
@@ -139,7 +141,7 @@ def save_images(paths, datas, save_path, prefix=None, suffix=None):
         # new_im = Image.fromarray(data)
         # new_im.show()
 
-        imsave(path, data)
+        imageio.imwrite(path, data)
 
 def get_l2_norm_loss(diffs):
     shape = diffs.get_shape().as_list()
