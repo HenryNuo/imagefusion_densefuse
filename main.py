@@ -66,28 +66,27 @@ def main():
 			model_path = MODEL_SAVE_PATHS[2]
 			print('\nBegin to generate pictures ...\n')
 			# path = 'images/IV_images/'
-			path = 'images/MF_images/color/'
+			path = 'images/IV_images/'
 			for i in range(1):
 				index = i + 1
 				# infrared = path + 'IR' + str(index) + '.png'
 				# visible = path + 'VIS' + str(index) + '.png'
 
 				# RGB images
-				infrared = path + 'lytro-2-A.jpg'
-				visible = path + 'lytro-2-B.jpg'
+				infrared = path + 'IR1.png'
+				visible = path + 'VIS1.png'
 
 				# choose fusion layer
 				fusion_type = 'addition'
 				# fusion_type = 'l1'
-				# for ssim_weight, model_path in zip(SSIM_WEIGHTS, MODEL_SAVE_PATHS):
+				for ssim_weight, model_path in zip(SSIM_WEIGHTS, MODEL_SAVE_PATHS):
 				# 	output_save_path = 'outputs'
                 #
 				# 	generate(infrared, visible, model_path, model_pre_path,
 				# 	         ssim_weight, index, IS_VIDEO, is_RGB, type = fusion_type, output_path = output_save_path)
 
-				output_save_path = 'outputs'
-				generate(infrared, visible, model_path, model_pre_path,
-						 ssim_weight, index, IS_VIDEO, IS_RGB, type = fusion_type, output_path = output_save_path)
+					output_save_path = 'outputs'
+					generate(infrared, visible, model_path, model_pre_path, ssim_weight, index, IS_VIDEO, IS_RGB, type=fusion_type, output_path=output_save_path)
 
 
 if __name__ == '__main__':

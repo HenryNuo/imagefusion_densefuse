@@ -59,4 +59,3 @@ def conv2d(x, kernel, bias, use_relu=True):
         out = tf.nn.relu(out)
 
     return out
-

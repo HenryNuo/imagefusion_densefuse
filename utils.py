@@ -4,14 +4,13 @@ import numpy as np
 
 from os import listdir, mkdir, sep
 from os.path import join, exists, splitext
-#from scipy.misc import imread, imsave, imresize
+from scipy.misc import imread, imsave, imresize
 import skimage
 import skimage.io
 import skimage.transform
 import tensorflow as tf
 from PIL import Image
 from functools import reduce
-import imageio
 
 
 def list_images(directory):
@@ -33,9 +32,9 @@ def list_images(directory):
 
 # read images
 def get_image(path, height=256, width=256, set_mode='L'):
-    image = imageio.imread(path, mode=set_mode)
+    image = imread(path, mode=set_mode)
     if height is not None and width is not None:
-        image = skimage.transform.imresize(image, [height, width], interp='nearest')
+        image = imresize(image, [height, width], interp='nearest')
     return image
 
 
@@ -71,19 +70,18 @@ def get_train_images_rgb(paths, crop_height=256, crop_width=256, flag=False):
     return images
 
 
-def get_test_image_rgb(path, resize_len=512, crop_height=256, crop_width=256, flag = True):
+def get_test_image_rgb(path, resize_len=512, crop_height=256, crop_width=256, flag=True):
     # image = imread(path, mode='L')
-    image = imageio.imread(path, mode='RGB')
+    image = imread(path, mode='RGB')
     return image
 
 
 def get_images_test(path, mod_type='L', height=None, width=None):
-
-    image = imageio.imread(path, mode=mod_type)
+    image = imread(path, mode=mod_type)
     if height is not None and width is not None:
-        image = skimage.transform.imresize(image, [height, width], interp='nearest')
+        image = imresize(image, [height, width], interp='nearest')
 
-    if mod_type=='L':
+    if mod_type == 'L':
         d = image.shape
         image = np.reshape(image, [d[0], d[1], 1])
 
@@ -96,10 +94,10 @@ def get_images(paths, height=None, width=None):
 
     images = []
     for path in paths:
-        image = imageio.imread(path, mode='RGB')
+        image = imread(path, mode='RGB')
 
         if height is not None and width is not None:
-            image = skimage.transform.imresize(image, [height, width], interp='nearest')
+            image = imresize(image, [height, width], interp='nearest')
 
         images.append(image)
 
@@ -114,7 +112,7 @@ def save_images(paths, datas, save_path, prefix=None, suffix=None):
 
     t1 = len(paths)
     t2 = len(datas)
-    assert(len(paths) == len(datas))
+    assert (len(paths) == len(datas))
 
     if not exists(save_path):
         mkdir(save_path)
@@ -133,15 +131,15 @@ def save_images(paths, datas, save_path, prefix=None, suffix=None):
 
         name, ext = splitext(path)
         name = name.split(sep)[-1]
-        
+
         path = join(save_path, prefix + suffix + ext)
         print('data path==>>', path)
-
 
         # new_im = Image.fromarray(data)
         # new_im.show()
 
-        imageio.imwrite(path, data)
+        imsave(path, data)
+
 
 def get_l2_norm_loss(diffs):
     shape = diffs.get_shape().as_list()

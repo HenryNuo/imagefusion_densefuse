@@ -43,4 +43,3 @@ class DenseFuseNet(object):
         # decode image
         generated_img = self.decoder.decode(feature)
         return generated_img
-
